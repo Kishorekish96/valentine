@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Special 💖</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ff4e50, #f9d423);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hearts {
+      position: fixed; width: 100%; height: 100%;
+      background: url("https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80");
+      opacity: 0.2; z-index: 0;
+    }
+    .card {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      max-width: 350px; width: 90%;
+      min-height: 320px; /* Room for the button to jump */
+    }
+    h1 { color: #fff; font-size: 26px; margin-bottom: 40px; pointer-events: none; }
+    .buttons { position: relative; height: 150px; width: 100%; }
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    #yesBtn {
+      background: #ff1e56;
+      color: #fff;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-110%); /* Centers it slightly left */
+    }
+    #noBtn {
+      background: #00e0ff;
+      color: #000;
+      position: absolute;
+      left: 50%;
+      transform: translateX(10%); /* Centers it slightly right */
+      transition: none; /* Instant movement */
+      z-index: 10;
+    }
+    .rose { font-size: 40px; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+
+  <div class="hearts"></div>
+  <div class="card">
+    <div class="rose">🌹</div>
+    <h1>Do you accept my love? 💖</h1>
+    <div class="buttons">
+      <button id="yesBtn" onclick="alert('🥰 Love you too!')">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const container = document.querySelector('.buttons');
+
+    // This tracks the mouse movement anywhere on the screen
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      
+      const btnRect = noBtn.getBoundingClientRect();
+      const btnCenterX = btnRect.left + btnRect.width / 2;
+      const btnCenterY = btnRect.top + btnRect.height / 2;
+
+      // Calculate distance between cursor and button center
+      const distance = Math.hypot(mouseX - btnCenterX, mouseY - btnCenterY);
+
+      // If cursor is closer than 80 pixels, move the button
+      if (distance < 80) {
+        moveButton();
+      }
+    });
+
+    function moveButton() {
+      // Constraints to keep it inside the card and AWAY from the text
+      // We use a range that keeps it in the lower half of the card
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 100 + 20; // Starts 20px down, goes up to 120px down
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    // Touch support for mobile
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveButton();
+    });
+  </script>
+</body>
+</html>
