@@ -14,14 +14,23 @@
       justify-content: center;
       overflow: hidden;
     }
-    .hearts {
+.hearts {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: url("Beast.jpeg") no-repeat center center/cover;
-  opacity: 0.20;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
   z-index: 0;
+  animation: bgSlide 10s infinite;
 }
+
+@keyframes bgSlide {
+  0%   { background-image: url("Beast.jpeg"); }
+  50%  { background-image: url("Vijay.jpg"); }
+  100% { background-image: url("Beast.jpeg"); }
+}
+
     }
     .card {
       position: relative; z-index: 1;
